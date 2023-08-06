@@ -4,7 +4,7 @@ pub use crate::errors::VoicePeakError;
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct VoicePeak {
-    path: String,
+    pub path: String,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
@@ -37,17 +37,17 @@ impl std::fmt::Display for VoicePeakNarrator {
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct VoicePeakInput {
     /// The text to speak, must be within 140 letters.
-    script: String,
-    narrator: VoicePeakNarrator,
-    emotion: VoicePeakEmotion,
+    pub script: String,
+    pub narrator: VoicePeakNarrator,
+    pub emotion: VoicePeakEmotion,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct VoicePeakEmotion {
-    happy: usize,
-    sad: usize,
-    angry: usize,
-    fun: usize,
+    pub happy: usize,
+    pub sad: usize,
+    pub angry: usize,
+    pub fun: usize,
 }
 
 impl ToString for VoicePeakEmotion {
