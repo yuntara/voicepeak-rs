@@ -16,6 +16,7 @@ pub enum VoicePeakNarrator {
     JapaneseFemale1,
     JapaneseFemale2,
     JapaneseFemale3,
+    TohokuZunko,
     Other(String),
 }
 
@@ -29,6 +30,7 @@ impl std::fmt::Display for VoicePeakNarrator {
             Self::JapaneseMale1 => write!(f, "Japanese Male 1"),
             Self::JapaneseMale2 => write!(f, "Japanese Male 2"),
             Self::JapaneseMale3 => write!(f, "Japanese Male 3"),
+            Self::TohokuZunko => write!(f, "Tohoku Zunko"),
             Self::Other(name) => write!(f, "{}", name),
         }
     }
@@ -43,18 +45,50 @@ pub struct VoicePeakInput {
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
-pub struct VoicePeakEmotion {
+
+pub enum VoicePeakEmotion {
+    DefaultEmotion(DefaultEmotion),
+    TohokuZunkoEmotion(TohokuZunkoEmotion),
+}
+
+impl ToString for VoicePeakEmotion {
+    fn to_string(&self) -> String {
+        match self {
+            Self::DefaultEmotion(emotion) => emotion.to_string(),
+            Self::TohokuZunkoEmotion(emotion) => emotion.to_string(),
+        }
+    }
+}
+
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub struct DefaultEmotion {
     pub happy: usize,
     pub sad: usize,
     pub angry: usize,
     pub fun: usize,
 }
 
-impl ToString for VoicePeakEmotion {
+impl ToString for DefaultEmotion {
     fn to_string(&self) -> String {
         format!(
             "happy={},sad={},angry={},fun={}",
             self.happy, self.sad, self.angry, self.fun
+        )
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub struct TohokuZunkoEmotion {
+    pub sad: usize,
+    pub astonished: usize,
+    pub firm: usize,
+    pub live: usize,
+    pub soft: usize,
+}
+impl ToString for TohokuZunkoEmotion {
+    fn to_string(&self) -> String {
+        format!(
+            "sad={},astonished={},firm={},live={},soft={}",
+            self.sad, self.astonished, self.firm, self.live, self.soft
         )
     }
 }
