@@ -2,6 +2,7 @@ use std::path::Path;
 
 pub use crate::errors::VoicePeakError;
 
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct VoicePeak {
     path: String,
 }
