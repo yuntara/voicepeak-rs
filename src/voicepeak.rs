@@ -9,28 +9,16 @@ pub struct VoicePeak {
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub enum VoicePeakNarrator {
-    JapaneseFemaleChild,
-    JapaneseMale1,
-    JapaneseMale2,
-    JapaneseMale3,
-    JapaneseFemale1,
-    JapaneseFemale2,
-    JapaneseFemale3,
     TohokuZunko,
+    Zundamon,
     Other(String),
 }
 
 impl std::fmt::Display for VoicePeakNarrator {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::JapaneseFemaleChild => write!(f, "Japanese Female Child"),
-            Self::JapaneseFemale1 => write!(f, "Japanese Female 1"),
-            Self::JapaneseFemale2 => write!(f, "Japanese Female 2"),
-            Self::JapaneseFemale3 => write!(f, "Japanese Female 3"),
-            Self::JapaneseMale1 => write!(f, "Japanese Male 1"),
-            Self::JapaneseMale2 => write!(f, "Japanese Male 2"),
-            Self::JapaneseMale3 => write!(f, "Japanese Male 3"),
             Self::TohokuZunko => write!(f, "Tohoku Zunko"),
+            Self::Zundamon => write!(f, "Zundamon"),
             Self::Other(name) => write!(f, "{}", name),
         }
     }
@@ -93,6 +81,21 @@ impl ToString for TohokuZunkoEmotion {
         format!(
             "sad={},astonished={},firm={},live={},soft={}",
             self.sad, self.astonished, self.firm, self.live, self.soft
+        )
+    }
+}
+#[derive(Debug, Clone, PartialEq, Eq, Hash)]
+pub struct ZundamonEmotion {
+    pub aori: usize,
+    pub hisohiso: usize,
+    pub live: usize,
+    pub tsuntsun: usize,
+}
+impl ToString for ZundamonEmotion {
+    fn to_string(&self) -> String {
+        format!(
+            "aori={},hisohiso={},live={},tsuntsun={}",
+            self.aori, self.hisohiso, self.live, self.tsuntsun
         )
     }
 }
