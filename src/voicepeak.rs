@@ -86,6 +86,7 @@ impl ToString for TohokuZunkoEmotion {
 }
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
 pub struct ZundamonEmotion {
+    pub amaama: usize,
     pub aori: usize,
     pub hisohiso: usize,
     pub live: usize,
@@ -94,8 +95,8 @@ pub struct ZundamonEmotion {
 impl ToString for ZundamonEmotion {
     fn to_string(&self) -> String {
         format!(
-            "aori={},hisohiso={},live={},tsuntsun={}",
-            self.aori, self.hisohiso, self.live, self.tsuntsun
+            "amaama={},aori={},hisohiso={},live={},tsuntsun={}",
+            self.amaama, self.aori, self.hisohiso, self.live, self.tsuntsun
         )
     }
 }
