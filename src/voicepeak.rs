@@ -41,6 +41,7 @@ pub struct VoicePeakInput {
 pub enum VoicePeakEmotion {
     DefaultEmotion(DefaultEmotion),
     TohokuZunkoEmotion(TohokuZunkoEmotion),
+    ZundamonEmotion(ZundamonEmotion),
 }
 
 impl ToString for VoicePeakEmotion {
@@ -48,6 +49,7 @@ impl ToString for VoicePeakEmotion {
         match self {
             Self::DefaultEmotion(emotion) => emotion.to_string(),
             Self::TohokuZunkoEmotion(emotion) => emotion.to_string(),
+            Self::ZundamonEmotion(emotion) => emotion.to_string(),
         }
     }
 }
