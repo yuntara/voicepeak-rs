@@ -42,6 +42,10 @@ pub struct VoicePeakInput {
     pub script: String,
     pub narrator: VoicePeakNarrator,
     pub emotion: VoicePeakEmotion,
+    /// 50-200
+    pub speed: Option<usize>,
+    // -300 - 300
+    pub pitch: Option<usize>,
 }
 
 #[derive(Debug, Clone, PartialEq, Eq, Hash)]
@@ -103,19 +107,26 @@ impl VoicePeak {
         output_path: &Path,
     ) -> Result<(), VoicePeakError> {
         use tokio::process::Command;
+        let mut args = vec![
+            "-s".to_owned(),
+            input.script,
+            "-n".to_owned(),
+            input.narrator.to_string(),
+            "-o".to_owned(),
+            output_path.to_str().unwrap().to_owned(),
+            "-e".to_owned(),
+            input.emotion.to_string(),
+        ];
+        if let Some(speed) = input.speed {
+            args.push("--speed".to_owned());
+            args.push(speed.to_string());
+        }
+        if let Some(pitch) = input.pitch {
+            args.push("--pitch".to_owned());
+            args.push(pitch.to_string());
+        }
 
-        let process = Command::new(self.path.clone())
-            .args(&[
-                "-s",
-                &input.script,
-                "-n",
-                &input.narrator.to_string(),
-                "-o",
-                output_path.to_str().unwrap(),
-                "-e",
-                &input.emotion.to_string(),
-            ])
-            .spawn()?;
+        let process = Command::new(self.path.clone()).args(&args).spawn()?;
 
         let _output = process.wait_with_output().await?;
         Ok(())
